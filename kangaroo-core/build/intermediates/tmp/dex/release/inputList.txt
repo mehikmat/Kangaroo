@@ -1,0 +1,6 @@
+/home/hikmat/AndroidStudioProjects/Kangaroo/kangaroo-core/build/intermediates/classes/release
+/home/hikmat/AndroidStudioProjects/Kangaroo/kangaroo-core/build/intermediates/pre-dexed/release/support-annotations-21.0.0-19c16fb8abf51c7fe31c2751218b2790d7a90e0b.jar
+/home/hikmat/AndroidStudioProjects/Kangaroo/kangaroo-core/build/intermediates/pre-dexed/release/classes-2e1d53f9bb6ca80db6c9e7684bd50067a1b14d44.jar
+/home/hikmat/AndroidStudioProjects/Kangaroo/kangaroo-core/build/intermediates/pre-dexed/release/android-async-http-1.4.5-9f8366b90bd7eb09e236ed76bb6f77bfcb6c4262.jar
+/home/hikmat/AndroidStudioProjects/Kangaroo/kangaroo-core/build/intermediates/pre-dexed/release/internal_impl-21.0.0-375144b60dc4c85b6954487583677288fa26c48f.jar
+/home/hikmat/AndroidStudioProjects/Kangaroo/kangaroo-core/build/intermediates/pre-dexed/release/classes-43a9481738fa8cf62c6519e2b56004041f7fe0bc.jar

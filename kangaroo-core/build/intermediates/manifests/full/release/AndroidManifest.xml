@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kangaroo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:logo="@drawable/ic_launcher"
+        android:theme="@style/AppBaseTheme" >
+        <activity
+            android:name="com.kangaroo.MainActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.kangaroo.SignInActivity"
+            android:description="@drawable/ic_launcher"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity
+            android:name="com.kangaroo.SignUpActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="Sign Up"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity
+            android:name="com.kangaroo.OptionActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity android:name="com.kangaroo.ContactViewerActivity" />
+        <activity
+            android:name="rest.ContactDownloader"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity
+            android:name="rest.ContactSender"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity
+            android:name="util.About"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity
+            android:name="com.kangaroo.PhoneCallerActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+    </application>
+
+</manifest>

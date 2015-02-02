@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/FullscreenTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:background="@color/full_screen_background"
+    android:gravity="bottom|fill_vertical|center_horizontal|fill_horizontal|fill"
+    android:orientation="vertical"
+    android:showDividers="middle" >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.97"
+        android:src="@drawable/kangroo" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_signin"
+            android:layout_width="116dp"
+            android:layout_height="110dp"
+            android:layout_gravity="right"
+            android:layoutDirection="rtl"
+            android:background="@drawable/signinicon"
+             />
+
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="116dp"
+            android:layout_height="110dp"
+            android:layout_gravity="right"
+            android:background="@drawable/signupicon"
+            android:shadowRadius="255.22" />
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/home/hikmat/AndroidStudioProjects/Kangaroo/kangaroo-core/src/main/res/layout/main_screen_layout.xml -->
