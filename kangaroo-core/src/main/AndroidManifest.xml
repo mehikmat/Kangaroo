@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
 
     <application
         android:allowBackup="true"
@@ -49,28 +49,35 @@
             android:theme="@android:style/Theme.Light" >
         </activity>
         <activity
-            android:name="OptionActivity"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/app_name"
-            android:logo="@drawable/ic_launcher"
-            android:theme="@android:style/Theme.Light" >
-        </activity>
-        <activity android:name=".ContactViewerActivity"></activity><activity
-            android:name="rest.ContactDownloader"
+            android:name=".OptionActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:logo="@drawable/ic_launcher"
             android:theme="@android:style/Theme.Light" >
         </activity>
         <activity
-            android:name="rest.ContactSender"
+            android:name=".ContactViewerActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:logo="@drawable/ic_launcher"
             android:theme="@android:style/Theme.Light" >
         </activity>
         <activity
-            android:name="util.About"
+            android:name=".rest.ContactDownloaderActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity
+            android:name="com.kangaroo.rest.ContactSenderActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity
+            android:name=".util.About"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:logo="@drawable/ic_launcher"
@@ -83,7 +90,7 @@
             android:logo="@drawable/ic_launcher"
             android:theme="@android:style/Theme.Light" >
         </activity>
-        
+
     </application>
 
 </manifest>

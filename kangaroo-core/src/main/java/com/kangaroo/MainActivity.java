@@ -54,6 +54,7 @@ public class MainActivity extends Activity{
             return;
         }
         pd.dismiss();
+        return;
     }
 
     private void showProgressDialog() {

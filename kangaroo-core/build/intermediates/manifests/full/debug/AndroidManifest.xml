@@ -54,23 +54,29 @@
             android:logo="@drawable/ic_launcher"
             android:theme="@android:style/Theme.Light" >
         </activity>
-        <activity android:name="com.kangaroo.ContactViewerActivity" />
         <activity
-            android:name="rest.ContactDownloader"
+            android:name="com.kangaroo.ContactViewerActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:logo="@drawable/ic_launcher"
             android:theme="@android:style/Theme.Light" >
         </activity>
         <activity
-            android:name="rest.ContactSender"
+            android:name="com.kangaroo.rest.ContactDownloaderActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:logo="@drawable/ic_launcher"
             android:theme="@android:style/Theme.Light" >
         </activity>
         <activity
-            android:name="util.About"
+            android:name="com.kangaroo.rest.ContactSenderActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_launcher"
+            android:theme="@android:style/Theme.Light" >
+        </activity>
+        <activity
+            android:name="com.kangaroo.util.About"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:logo="@drawable/ic_launcher"

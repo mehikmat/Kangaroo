@@ -1,72 +1,72 @@
-package com.kangaroo;
+package com.kangaroo.rest;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.kangaroo.PhoneCallerActivity;
+import com.kangaroo.R;
 import com.kangaroo.model.Customer;
-import com.kangaroo.net.ConnectionDetector;
 import com.kangaroo.net.NetConstant;
 import com.kangaroo.util.About;
-import com.kangaroo.util.AlertDialogManager;
+import com.kangaroo.util.AppConstant;
 import com.kangaroo.util.CommonUtil;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-import static com.kangaroo.util.AppConstant.CUSTOMER_ID;
-import static com.kangaroo.util.AppConstant.STATUS;
-import static com.kangaroo.util.AppConstant.SUCCESS_MSG;
+public class ContactDownloaderActivity extends ListActivity {
 
-public class SignInActivity extends Activity implements OnClickListener,NetConstant {
-    Button btn_signin;
-    EditText username;
-    EditText password;
-
-    ConnectionDetector cd = null;
-    AlertDialogManager alert = null;
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "ContactDownloaderActivity";
+    ArrayList<HashMap<String,String>> contactsList = new ArrayList<HashMap<String,String>>();
+    Map<String, String> contacts=new HashMap<String, String>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signin_layout);
-        btn_signin = (Button) findViewById(R.id.btn_sign_in);
-        btn_signin.setOnClickListener(this);
+        setContentView(R.layout.import_from_lserver_layout);
+        try {
+            getContacts();
+        } catch (InterruptedException e) {
+            Log.e(TAG, e.getMessage());
+        } catch (ExecutionException e) {
+            Log.e(TAG, e.getMessage());
+
+        }
     }
 
+    public void getContacts() throws InterruptedException, ExecutionException {
+        String username = System.getProperty(AppConstant.CUSTOMER_ID);
 
-    public void postData(View vw) throws InterruptedException, ExecutionException {
-
-        username = (EditText) findViewById(R.id.txt_signin_user_name);
-        password = (EditText) findViewById(R.id.txt_signin_password);
-        String t1 = username.getText().toString();
-        String t2 = password.getText().toString();
-
-        Customer customer = new Customer(t1, t2);
-        Toast.makeText(this, "Verifying Username and Password", Toast.LENGTH_SHORT).show();
+        Customer customer = new Customer(username,"empty");
+        Toast.makeText(this,"Downloading Contacts...", Toast.LENGTH_LONG).show();
 
         // the passed String is the URL we will POST to
-        handleResponse(customer, "customer/validate");
+        handleResponse(customer,"contact/list");
     }
 
-    public void handleResponse( Customer customer, String endPoint) {
+    public void handleResponse(Customer customer, String endPoint) {
         AsyncHttpClient client = CommonUtil.initAsyncHttpClient();
         StringEntity entity = null;
         try {
@@ -80,16 +80,18 @@ public class SignInActivity extends Activity implements OnClickListener,NetConst
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                         try {
-                            JSONObject jsonObject = new JSONObject(new String(response));
-                            if (SUCCESS_MSG.equalsIgnoreCase(jsonObject.getString(STATUS))) {
-                                // Display successfully registered message using Toast
-                                Toast.makeText(getApplicationContext(), "Sign in Success!", Toast.LENGTH_SHORT).show();
-                                goForward();
+                            JSONArray peoples = new JSONArray( new String(response));
+                            if (peoples.length() > 0){
+                                for (int i = 0; i < peoples.length(); i++) {
+                                    JSONObject p = peoples.getJSONObject(i);
+                                    String name = p.getString(AppConstant.CONTACT_NAME);
+                                    String number = p.getString(AppConstant.CONTACT_NUMBER);
+                                    contacts.put(name, number);
+                                }
+                            }else {
+                                Toast.makeText(new ContactDownloaderActivity(),"No Contacts", Toast.LENGTH_SHORT).show();
                             }
-                            // Else display error message
-                            else {
-                                Toast.makeText(getApplicationContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show();
-                            }
+                            renderListView(contacts);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -113,29 +115,38 @@ public class SignInActivity extends Activity implements OnClickListener,NetConst
                 });
     }
 
+    private void renderListView(Map<String, String> contacts){
+        Set<String> set=contacts.keySet();
+        Iterator<String> it = set.iterator();
+        String name;
+        String number;
+        while (it.hasNext()) {
+            name = it.next();
+            number = contacts.get(name);
+            HashMap<String, String> map=new HashMap<String,String>();
+            map.put(AppConstant.CONTACT_NAME,name);
+            map.put(AppConstant.CONTACT_NUMBER, number);
+            contactsList.add(map);
+        }
+        ListAdapter adapter = new SimpleAdapter(this,contactsList,
+                R.layout.contact_viewer_list_layout, new String[] {AppConstant.CONTACT_NAME,AppConstant.CONTACT_NUMBER}, new int[] {R.id.contactName, R.id.contactNumber,});
+        setListAdapter(adapter);
 
-    private void goForward(){
-        System.getProperties().put(CUSTOMER_ID,username.getText().toString());
-        Intent i = new Intent(this, OptionActivity.class);
-        startActivity(i);
     }
 
     @Override
-    public void onClick(View v)
-    {
-        try {
-            postData(v);
-        } catch (InterruptedException e) {
-            Log.e(TAG, e.getMessage().toString());
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        String obj1 = contactsList.get(position).get(AppConstant.CONTACT_NAME);
+        String obj2 = contactsList.get(position).get(AppConstant.CONTACT_NUMBER);
+        System.getProperties().put(AppConstant.CONTACT_NAME,obj1);
+        System.getProperties().put(AppConstant.CONTACT_NUMBER, obj2);
 
-        } catch (ExecutionException e) {
-            Log.e(TAG, e.getMessage().toString());
-        }
-
+        Intent phoneCaller=new Intent(this,PhoneCallerActivity.class);
+        startActivity(phoneCaller);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.app_option, menu);
         return true ;
@@ -143,7 +154,6 @@ public class SignInActivity extends Activity implements OnClickListener,NetConst
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         return applyMenuChoices(item)|| super.onOptionsItemSelected(item);
     }
 

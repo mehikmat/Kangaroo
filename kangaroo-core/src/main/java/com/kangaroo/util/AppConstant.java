@@ -16,5 +16,6 @@ public interface AppConstant {
 
     public static final String AUTHENTICATED = "0";
     public static final String NOT_AUTHENTICATED = "1";
+    public static final String STATUS= "status";
 
 }

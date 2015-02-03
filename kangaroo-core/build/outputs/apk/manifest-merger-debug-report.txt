@@ -121,10 +121,6 @@ ADDED from AndroidManifest.xml:51:9
 		ADDED from AndroidManifest.xml:55:13
 activity#com.kangaroo.ContactViewerActivity
 ADDED from AndroidManifest.xml:58:9
-	android:name
-		ADDED from AndroidManifest.xml:58:19
-activity#rest.ContactDownloader
-ADDED from AndroidManifest.xml:58:68
 	android:label
 		ADDED from AndroidManifest.xml:61:13
 	android:icon
@@ -135,7 +131,7 @@ ADDED from AndroidManifest.xml:58:68
 		ADDED from AndroidManifest.xml:59:13
 	android:logo
 		ADDED from AndroidManifest.xml:62:13
-activity#rest.ContactSender
+activity#com.kangaroo.rest.ContactDownloaderActivity
 ADDED from AndroidManifest.xml:65:9
 	android:label
 		ADDED from AndroidManifest.xml:68:13
@@ -147,7 +143,7 @@ ADDED from AndroidManifest.xml:65:9
 		ADDED from AndroidManifest.xml:66:13
 	android:logo
 		ADDED from AndroidManifest.xml:69:13
-activity#util.About
+activity#com.kangaroo.rest.ContactSenderActivity
 ADDED from AndroidManifest.xml:72:9
 	android:label
 		ADDED from AndroidManifest.xml:75:13
@@ -159,7 +155,7 @@ ADDED from AndroidManifest.xml:72:9
 		ADDED from AndroidManifest.xml:73:13
 	android:logo
 		ADDED from AndroidManifest.xml:76:13
-activity#com.kangaroo.PhoneCallerActivity
+activity#com.kangaroo.util.About
 ADDED from AndroidManifest.xml:79:9
 	android:label
 		ADDED from AndroidManifest.xml:82:13
@@ -171,3 +167,15 @@ ADDED from AndroidManifest.xml:79:9
 		ADDED from AndroidManifest.xml:80:13
 	android:logo
 		ADDED from AndroidManifest.xml:83:13
+activity#com.kangaroo.PhoneCallerActivity
+ADDED from AndroidManifest.xml:86:9
+	android:label
+		ADDED from AndroidManifest.xml:89:13
+	android:icon
+		ADDED from AndroidManifest.xml:88:13
+	android:theme
+		ADDED from AndroidManifest.xml:91:13
+	android:name
+		ADDED from AndroidManifest.xml:87:13
+	android:logo
+		ADDED from AndroidManifest.xml:90:13

@@ -2,21 +2,19 @@ package com.kangaroo.model;
 
 import com.kangaroo.util.AppConstant;
 
-import java.util.Currency;
-
 /**
  * Created by hikmat on 2/3/15.
  */
 public class Customer {
 
     private String customerId;
-    private String customerName;
+    private String password;
 
     public Customer(){}
 
-    public Customer(String customerId, String customerName) {
+    public Customer(String customerId, String password) {
         this.customerId = customerId;
-        this.customerName = customerName;
+        this.password = password;
     }
 
     public String getCustomerId() {
@@ -27,12 +25,12 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String toJson(){
@@ -40,13 +38,9 @@ public class Customer {
         json
             .append("{")
             .append("\"").append(AppConstant.CUSTOMER_ID).append("\"").append(":").append("\"").append(customerId).append("\"") .append(",")
-            .append("\"").append(AppConstant.CUSTOMER_NAME).append("\"").append(":").append("\"").append(customerName).append("\"")
+            .append("\"").append(AppConstant.PASSWORD).append("\"").append(":").append("\"").append(password).append("\"")
             .append("}");
 
         return json.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new Customer("hk","dd").toJson());
     }
 }

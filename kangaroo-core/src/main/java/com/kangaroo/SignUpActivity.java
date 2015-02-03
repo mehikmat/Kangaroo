@@ -15,21 +15,20 @@ import android.widget.Toast;
 import com.kangaroo.model.Customer;
 import com.kangaroo.net.NetConstant;
 import com.kangaroo.util.About;
+import com.kangaroo.util.CommonUtil;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static com.kangaroo.util.AppConstant.CUSTOMER_ID;
-import static com.kangaroo.util.AppConstant.CUSTOMER_NAME;
-import static com.kangaroo.util.AppConstant.PASSWORD;
+import static com.kangaroo.util.AppConstant.STATUS;
 import static com.kangaroo.util.AppConstant.SUCCESS_MSG;
 
 public class SignUpActivity extends Activity implements OnClickListener
@@ -110,7 +109,7 @@ public class SignUpActivity extends Activity implements OnClickListener
             return;
         }
 
-        Customer customer = new Customer(strUserName,strUserName);
+        Customer customer = new Customer(strUserName,strPassword);
 
         Toast.makeText(this,"Registering...", Toast.LENGTH_LONG).show();
 
@@ -120,7 +119,7 @@ public class SignUpActivity extends Activity implements OnClickListener
     }
 
     public void handleResponse(Customer customer,String endPoint){
-        AsyncHttpClient client = new AsyncHttpClient();
+        AsyncHttpClient client = CommonUtil.initAsyncHttpClient();
         StringEntity entity = null;
         try {
             entity = new StringEntity(customer.toJson());
@@ -129,46 +128,45 @@ public class SignUpActivity extends Activity implements OnClickListener
         }
         client.post(getApplicationContext(),NetConstant.BASE_URL + "/" + endPoint,entity,"application/json",
                 new AsyncHttpResponseHandler() {
-            // When the response returned by REST has Http response code '200'
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                String res = null;
-                try {
-                    res = new String(response, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                if (SUCCESS_MSG.equalsIgnoreCase(res)) {
-                    // Display successfully registered message using Toast
-                    Toast.makeText(getApplicationContext(), "You are successfully registered!", Toast.LENGTH_LONG).show();
-                    goForward();
-                }
-                // Else display error message
-                else {
-                    Toast.makeText(getApplicationContext(), "Response: " + response.toString(), Toast.LENGTH_LONG).show();
-                }
-            }
+                    // When the response returned by REST has Http response code '200'
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(new String(response));
+                            if (SUCCESS_MSG.equalsIgnoreCase(jsonObject.getString(STATUS))) {
+                                // Display successfully registered message using Toast
+                                Toast.makeText(getApplicationContext(), "You are successfully registered!", Toast.LENGTH_SHORT).show();
+                                goForward();
+                            }
+                            // Else display error message
+                            else {
+                                Toast.makeText(getApplicationContext(), "Error occurred!", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-            // When the response returned by REST has Http response code other than '200'
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] response, Throwable error) {
-                if (statusCode == 404) {
-                    Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
-                }
-                // When Http response code is '500'
-                else if (statusCode == 500) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
-                }
-                // When Http response code other than 404, 500
-                else {
-                    Toast.makeText(getApplicationContext(),"Unexpected Error occurred! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+                    // When the response returned by REST has Http response code other than '200'
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] response, Throwable error) {
+                        if (statusCode == 404) {
+                            Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                        }
+                        // When Http response code is '500'
+                        else if (statusCode == 500) {
+                            Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                        }
+                        // When Http response code other than 404, 500
+                        else {
+                            Toast.makeText(getApplicationContext(),"Unexpected Error occurred! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     private void goForward(){
-        System.getProperties().put("username",username.getText().toString());
+        System.getProperties().put(CUSTOMER_ID,username.getText().toString());
         Intent intent=new Intent(this,OptionActivity.class);
         startActivity(intent);
     }

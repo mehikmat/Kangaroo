@@ -14,7 +14,7 @@ import com.kangaroo.PhoneCallerActivity;
 import com.kangaroo.R;
 import com.kangaroo.SignInActivity;
 import com.kangaroo.SignUpActivity;
-import com.kangaroo.rest.ContactDownloader;
+import com.kangaroo.rest.ContactDownloaderActivity;
 import com.kangaroo.util.AppConstant;
 
 public class EventHandler implements OnClickListener, OnTouchListener {
@@ -53,7 +53,7 @@ public class EventHandler implements OnClickListener, OnTouchListener {
         }
 
         if(view.getId()==R.id.btn_import_from_server){
-            Intent addIntent=new Intent(optionActivity,ContactDownloader.class);
+            Intent addIntent=new Intent(optionActivity,ContactDownloaderActivity.class);
             optionActivity.startActivity(addIntent);
 
         }
@@ -65,7 +65,7 @@ public class EventHandler implements OnClickListener, OnTouchListener {
 
         if(view.getId()==R.id.btn_phone_call){
             Intent phoneCall=new Intent(Intent.ACTION_CALL);
-            phoneCall.setData(Uri.parse("tel:"+System.getProperty(AppConstant.CONTACT_NUMBER).toString()));
+            phoneCall.setData(Uri.parse("tel:" + System.getProperty(AppConstant.CONTACT_NUMBER).toString()));
             phoneCallerActivity.startActivity(phoneCall);
         }
 

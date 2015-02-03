@@ -15,12 +15,10 @@ public  class ConnectionDetector {
     public boolean isInternetAvailable(){
         ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (null != connectivity) {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (null != info)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED){
-                        return true;
-                    }
+            NetworkInfo info = connectivity.getActiveNetworkInfo();
+            if (null != info & info.isConnectedOrConnecting()){
+                return true;
+            }
         }
         return false;
     }
