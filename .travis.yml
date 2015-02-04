@@ -1,3 +1,7 @@
 language: android
+notifications:
+  email: false
+
+before_install:
 # manually set sdk.dir variable, according to local paths
-- echo "sdk.dir=$ANDROID_HOME" > local.properties
+  - echo "sdk.dir=$ANDROID_HOME" > local.properties
