@@ -5,13 +5,9 @@ notifications:
 
 env:
   global:
-    - ANDROID_SDK_VERSION="r21.0.0"
+    - ANDROID_SDK_VERSION="r21.1.2"
     
 before_install:
-  - wget http://dl.google.com/android/android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
-  - tar -zxf android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
   - export ANDROID_HOME=`pwd`/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-
 # manually set sdk.dir variable, according to local paths
   - echo "sdk.dir=$ANDROID_HOME" > local.properties
