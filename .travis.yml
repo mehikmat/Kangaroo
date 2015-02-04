@@ -8,6 +8,6 @@ env:
     - ANDROID_SDK_VERSION="r21.1.2"
     
 before_install:
-  - export ANDROID_HOME=`pwd`/android-sdk-linux
+  - echo ">>>>>>>>>>>>$ANDROID_HOME"
 # manually set sdk.dir variable, according to local paths
   - echo "sdk.dir=$ANDROID_HOME" > local.properties
