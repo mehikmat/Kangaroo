@@ -1,1 +1,3 @@
 language: android
+# manually set sdk.dir variable, according to local paths
+- echo "sdk.dir=$ANDROID_HOME" > local.properties
