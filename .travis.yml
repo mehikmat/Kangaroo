@@ -9,5 +9,6 @@ env:
     
 before_install:
   - echo ">>>>>>>>>>>>$ANDROID_HOME"
+   - echo yes | android update sdk --all --filter build-tools-21.1.2 --no-ui --force > /dev/null
 # manually set sdk.dir variable, according to local paths
   - echo "sdk.dir=$ANDROID_HOME" > local.properties
